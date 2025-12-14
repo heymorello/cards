@@ -1,11 +1,146 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Мой сайт</title>
+  <meta charset="UTF-8" />
+  <title>Волшебный Оракул</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #2b1055, #000);
+      color: #f5e9ff;
+      font-family: "Georgia", serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 40px;
+      text-shadow: 0 0 15px rgba(200, 150, 255, 0.8);
+      letter-spacing: 2px;
+    }
+
+    .cards {
+      display: flex;
+      gap: 40px;
+      perspective: 1200px;
+    }
+
+    .card-wrapper {
+      cursor: pointer;
+    }
+
+    .card-wrapper.small {
+      transform: scale(0.85);
+    }
+
+    .card-wrapper.big {
+      transform: scale(1.1);
+    }
+
+    .card {
+      width: 160px;
+      height: 260px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease, box-shadow 0.4s ease;
+      border-radius: 12px;
+    }
+
+    .card-wrapper:hover .card {
+      box-shadow: 0 0 25px rgba(180, 120, 255, 0.9);
+    }
+
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .card-back {
+      background: url("images/back.png") center / cover no-repeat;
+    }
+
+    .card-front {
+      transform: rotateY(180deg);
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hint {
+      margin-top: 30px;
+      opacity: 0.7;
+      font-size: 1rem;
+    }
+  </style>
 </head>
 <body>
-  <h1>Привет, мир!</h1>
-  <p>Это мой сайт на GitHub Pages</p>
+  <h1>Волшебный Оракул</h1>
+
+  <div class="cards">
+    <div class="card-wrapper small">
+      <div class="card">
+        <div class="card-face card-back"></div>
+        <div class="card-face card-front"></div>
+      </div>
+    </div>
+
+    <div class="card-wrapper big">
+      <div class="card">
+        <div class="card-face card-back"></div>
+        <div class="card-face card-front"></div>
+      </div>
+    </div>
+
+    <div class="card-wrapper small">
+      <div class="card">
+        <div class="card-face card-back"></div>
+        <div class="card-face card-front"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint">Нажмите на карты, чтобы узнать предсказание</div>
+
+  <script>
+    // Список из 30 картинок (должны лежать в папке images)
+    const images = Array.from({ length: 30 }, (_, i) => `images/card${i + 1}.png`);
+
+    // Перемешиваем массив
+    function shuffle(array) {
+      return array
+        .map(value => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value);
+    }
+
+    const cards = document.querySelectorAll('.card');
+    const shuffledImages = shuffle(images);
+
+    cards.forEach((card, index) => {
+      const front = card.querySelector('.card-front');
+      front.style.backgroundImage = `url('${shuffledImages[index]}')`;
+
+      card.addEventListener('click', () => {
+        if (!card.classList.contains('flipped')) {
+          card.classList.add('flipped');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
