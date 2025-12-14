@@ -33,10 +33,13 @@
 
     .card-wrapper {
       cursor: pointer;
-      animation: breathe 4s ease-in-out infinite;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  animation: breathe 4s ease-in-out infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;   /* ограничиваем размер по содержимому */
+  height: auto;
+  position: relative;
     }
 
     .card-wrapper.small .card {
@@ -66,9 +69,9 @@
     }
 
     .card-wrapper:hover .card {
-      box-shadow: 0 0 5px rgba(180, 120, 255, 0.9);
-      animation-play-state: paused;
-    }
+  animation-play-state: paused; /* только дыхание */
+  /* убрали box-shadow отсюда */
+}
 
     .card-face {
       position: absolute;
