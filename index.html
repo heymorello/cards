@@ -68,9 +68,9 @@
       overflow: visible;
     }
 
-    .card-wrapper:hover .card {
-  animation-play-state: paused; /* только дыхание */
-  /* убрали box-shadow отсюда */
+  .card-wrapper:hover .card {
+box-shadow: 0 0 25px rgba(180, 120, 255, 0.9);
+animation-play-state: paused;
 }
 
     .card-face {
@@ -129,7 +129,7 @@
     </div>
   </div>
 
-  <div class="hint">Нажмите на карты, чтобы узнать предсказание</div>
+  <div class="hint">Нажми на карты, чтобы узнать предсказание</div>
 
   <script>
     const images = Array.from({ length: 30 }, (_, i) => `images/card${i + 1}.png`);
