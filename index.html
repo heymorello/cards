@@ -116,9 +116,11 @@
 
   <div class="hint">Нажмите на карты, чтобы узнать предсказание</div>
 
-  <script>
-    // Список из 30 картинок (должны лежать в папке images)
-    const images = Array.from({ length: 30 }, (_, i) => `images/card${i + 1}.png`);
+ <script>
+  const images = Array.from(
+    { length: 30 },
+    (_, i) => `images/card${i + 1}.png`
+  );
 
     // Перемешиваем массив
     function shuffle(array) {
