@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <title>Нешушовый Оракул</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -41,12 +39,16 @@
       align-items: center;
     }
 
-    .card-wrapper.small {
-      transform: scale(0.9);
+    .card-wrapper.small .card {
+      width: 200px;
+      height: auto;
+      aspect-ratio: 2 / 3;
     }
 
-    .card-wrapper.big {
-      transform: scale(1.1);
+    .card-wrapper.big .card {
+      width: 260px;
+      height: auto;
+      aspect-ratio: 2 / 3;
     }
 
     @keyframes breathe {
@@ -56,9 +58,6 @@
     }
 
     .card {
-      width: 240px;
-      height: auto;
-      aspect-ratio: 2 / 3;
       position: relative;
       transform-style: preserve-3d;
       transition: transform 0.8s ease, box-shadow 0.4s ease;
@@ -67,7 +66,7 @@
     }
 
     .card-wrapper:hover .card {
-      box-shadow: 0 0 25px rgba(180, 120, 255, 0.9);
+      box-shadow: 0 0 15px rgba(180, 120, 255, 0.9);
       animation-play-state: paused;
     }
 
@@ -149,7 +148,6 @@
       card.addEventListener('click', () => {
         if (!card.classList.contains('flipped')) {
           card.classList.add('flipped');
-          // проигрываем звук, если есть
           const flipSound = new Audio('sounds/flip.mp3');
           flipSound.currentTime = 0;
           flipSound.play();
