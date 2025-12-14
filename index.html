@@ -36,6 +36,9 @@
     .card-wrapper {
       cursor: pointer;
       animation: breathe 4s ease-in-out infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .card-wrapper.small {
@@ -43,7 +46,13 @@
     }
 
     .card-wrapper.big {
-      transform: scale(1.05);
+      transform: scale(1.1);
+    }
+
+    @keyframes breathe {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
     }
 
     .card {
@@ -53,16 +62,13 @@
       position: relative;
       transform-style: preserve-3d;
       transition: transform 0.8s ease, box-shadow 0.4s ease;
+      border-radius: 0;
       overflow: visible;
     }
 
     .card-wrapper:hover .card {
       box-shadow: 0 0 25px rgba(180, 120, 255, 0.9);
       animation-play-state: paused;
-    }
-
-    .card.flipped {
-      transform: rotateY(180deg);
     }
 
     .card-face {
@@ -74,24 +80,24 @@
     }
 
     .card-back {
-      background: url("images/back.png") center / cover no-repeat;
+      background: url("images/back.png") center / contain no-repeat;
     }
 
     .card-front {
       transform: rotateY(180deg);
-      background-size: cover;
+      background-size: contain;
       background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .flipped {
+      transform: rotateY(180deg);
     }
 
     .hint {
       margin-top: 30px;
       opacity: 0.7;
       font-size: 1rem;
-    }
-  @keyframes breathe {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-      100% { transform: scale(1); }
     }
   </style>
 </head>
@@ -124,13 +130,8 @@
   <div class="hint">Нажмите на карты, чтобы узнать предсказание</div>
 
   <script>
-    // Список из 30 картинок (должны лежать в папке images)
-    const images = Array.from(
-      { length: 30 },
-      (_, i) => `images/card${i + 1}.png`
-    );
+    const images = Array.from({ length: 30 }, (_, i) => `images/card${i + 1}.png`);
 
-    // Перемешиваем массив
     function shuffle(array) {
       return array
         .map(value => ({ value, sort: Math.random() }))
@@ -139,7 +140,6 @@
     }
 
     const cards = document.querySelectorAll('.card');
-    const flipSound = new Audio('sounds/flip.mp3');
     const shuffledImages = shuffle(images);
 
     cards.forEach((card, index) => {
@@ -148,11 +148,11 @@
 
       card.addEventListener('click', () => {
         if (!card.classList.contains('flipped')) {
+          card.classList.add('flipped');
+          // проигрываем звук, если есть
+          const flipSound = new Audio('sounds/flip.mp3');
           flipSound.currentTime = 0;
           flipSound.play();
-          card.classList.add('flipped');
-        }
-      });
         }
       });
     });
